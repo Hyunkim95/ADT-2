@@ -10,19 +10,6 @@ const prop = require('crocks/Maybe/prop')
 const option = require('crocks/pointfree/option')
 
 const { modify, get } = State
-// state takes function and returns a pair of your state and the calculated value of that
-// research store
-// can both read and set 
-
-/* 
-  State a s 
-  left side is what we are mappign over 
-  right side is the actual state
-
-  ** we dont care alot of time about the current calculated state we only care about the state 
-  ** it allows us to adjust it and do things to it because it is on the left side
-  ** it allows us to work on that state until we want to 
-*/
 
 // pluckSeed : Integer -> Object -> Integer
 const pluckSeed = 
@@ -34,6 +21,7 @@ const rando = s => {
   const value = (seed >>> 16) / 0x7fff
 
   return modify(assign({ seed }))
+    .map(K(value))
 }
 
 // pullRandom : Integer -> () -> State Object Float
@@ -46,23 +34,9 @@ const limitIndx =
 
 const seed = 76
 
-const stateTest =
-  State(s => {
-    return Pair(toUpper(s), s)
-  })
-
-const toUpper =
-  x => x.toUpperCase()  
-
 log( 
-  // State.of(seed)
-    // .chain(pullRandom)    
-    // .map(limitIndx(52))
-    // .runWith({ seed: 23 }).snd()
-      modify(prop('seed'))
-      .runWith({seed: 23})
+  State.of(seed)
+    .chain(pullRandom)    
+    .map(limitIndx(52))
+    .runWith({ seed: 23 })
 )
-
-//rando() - generates a Pair(val, s(val))
-// .chain(rando) :: (a -> mb) -> ma -> mb  - right value of the Pair is threaded in for the function
-// .runWith({ seed: 23 })

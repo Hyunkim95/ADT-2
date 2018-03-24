@@ -50,3 +50,11 @@ get(prop('seed'))
 
 ***put***
 > Used to replace the state portion of a given State instance,, put can be employed anytime that the state can change without having to know about it's previous value. If the previous value is required for a given stateful computation, modify can be used to lift a function that represents the change.
+
+## Extra notes
+
+```
+//rando() - generates a Pair(val, s(val))
+// .chain(rando) :: (a -> mb) -> ma -> mb  - right value of the Pair is threaded in for the function
+// .runWith({ seed: 23 })
+```
