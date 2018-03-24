@@ -34,7 +34,6 @@ const rando = s => {
   const value = (seed >>> 16) / 0x7fff
 
   return modify(assign({ seed }))
-    .map(K(value))
 }
 
 // pullRandom : Integer -> () -> State Object Float
@@ -47,11 +46,21 @@ const limitIndx =
 
 const seed = 76
 
+const stateTest =
+  State(s => {
+    return Pair(toUpper(s), s)
+  })
+
+const toUpper =
+  x => x.toUpperCase()  
+
 log( 
-  State.of(seed)
-    .chain(pullRandom)    
-    .map(limitIndx(52))
-    .runWith({ seed: 23 })
+  // State.of(seed)
+    // .chain(pullRandom)    
+    // .map(limitIndx(52))
+    // .runWith({ seed: 23 }).snd()
+      modify(prop('seed'))
+      .runWith({seed: 23})
 )
 
 //rando() - generates a Pair(val, s(val))
