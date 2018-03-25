@@ -42,7 +42,7 @@ get(prop('seed'))
 ***modify*** - takes a function and whatever state it is runWith, it will return a new State instance with the result of the function in the state portion
 
 ```
-get(prop('seed'))
+modify(prop('seed'))
   .runWith({seed: 23})
 
  > Pair((), Just 23)
